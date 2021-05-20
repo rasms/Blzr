@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorPwa", "BlazorPwa\BlazorPwa.csproj", "{F9551AB3-0776-4C41-BCBB-91DBA929B835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlzrAPI", "BlzrAPI\BlzrAPI\BlzrAPI.csproj", "{F494A03C-AA00-44DF-9F6B-768CE56BD461}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlzrAPI", "BlzrAPI\BlzrAPI.csproj", "{F494A03C-AA00-44DF-9F6B-768CE56BD461}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

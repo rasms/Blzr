@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=tcp:sql01rl.database.windows.net,1433;Initial Catalog=AdventureWorksDb;Persist Security Info=False;User ID=rladmin;Password=<PW>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -o Models --no-onconfiguring --schema SalesLT
