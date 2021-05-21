@@ -8,39 +8,54 @@
 
 @if (_customers == null)
 {
-    <p><em>Loading...</em></p>
+    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="1024px" Height="420px" />
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>EmailAddress</th>
-                <th>Company</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in _customers)
-            {
-                <tr>
-                    <td>@customer.FirstName</td>
-                    <td>@customer.LastName</td>
-                    <td>@customer.EmailAddress</td>
-                    <td>@customer.CompanyName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    
+    <MudTable Items="@_customers" Hover="true" Dense="true" Striped="true" SortLabel="Sort By" RowsPerPage="50">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<Customer, object>(x=>x.CustomerId)">CustomerId</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Customer, object>(x=>x.FirstName)">Firstname</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Customer, object>(x=>x.LastName)">Lastname</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Customer, object>(x=>x.EmailAddress)">Email</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Customer, object>(x=>x.CompanyName)">Company</MudTableSortLabel></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="CustomerId">@context.CustomerId</MudTd>
+            <MudTd DataLabel="Firstname">@context.FirstName</MudTd>
+            <MudTd DataLabel="Lastname">@context.LastName</MudTd>
+            <MudTd DataLabel="Email">@context.EmailAddress</MudTd>
+            <MudTd DataLabel="Company">@context.CompanyName</MudTd>
+        </RowTemplate>
+         <RowEditingTemplate>
+                <MudTd DataLabel="CustomerId">@context.CustomerId</MudTd>
+                <MudTd DataLabel="Firstname">
+                    <MudTextField @bind-Value="@context.FirstName" Required />
+                </MudTd>
+                <MudTd DataLabel="Lastname">
+                    <MudTextField @bind-Value="@context.LastName" Required />
+                </MudTd>
+                <MudTd DataLabel="Email">
+                    <MudTextField @bind-Value="@context.EmailAddress" Required />
+                </MudTd>
+                <MudTd DataLabel="Company">
+                    <MudTextField @bind-Value="@context.CompanyName" />
+                </MudTd>
+            </RowEditingTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new[]{50, 100}" />
+        </PagerContent>
+    </MudTable>
+    
 }
 
 @code {
-    private Customer[] _customers;
+    
+    private IEnumerable<Customer> _customers = new List<Customer>();
 
     protected override async Task OnInitializedAsync()
     {
-        _customers = await _http.GetFromJsonAsync<Customer[]>("https://localhost:5001/Customer");
-    }
-    
+        _customers = await _http.GetFromJsonAsync<List<Customer>>("https://localhost:5001/Customer");
+    } 
 }
