@@ -30,7 +30,7 @@ namespace BlzrAPI.Models
         public virtual DbSet<VGetAllCategory> VGetAllCategories { get; set; }
         public virtual DbSet<VProductAndDescription> VProductAndDescriptions { get; set; }
         public virtual DbSet<VProductModelCatalogDescription> VProductModelCatalogDescriptions { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
