@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace BlzrAPI.Models
+namespace BlzrModels.Models
 {
     public partial class AdventureWorksDbContext : DbContext
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace BlzrAPI.Models
+namespace BlzrModels.Models
 {
     public partial class ProductCategory
     {
