@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using BlzrAPI.Helpers;
+using BlzrAPI.Services;
 
 namespace BlzrAPI
 {
@@ -32,6 +34,11 @@ namespace BlzrAPI
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "BlzrAPI", Version = "v1"}); });
             services.AddDbContext<AdventureWorksDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => 
@@ -56,6 +63,8 @@ namespace BlzrAPI
             app.UseCors();
             
             app.UseAuthorization();
+            
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

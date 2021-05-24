@@ -21,6 +21,7 @@ namespace BlzrAPI.Controllers
         }
 
         // GET: api/Customer
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
@@ -28,6 +29,7 @@ namespace BlzrAPI.Controllers
         }
 
         // GET: api/Customer/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
@@ -43,6 +45,7 @@ namespace BlzrAPI.Controllers
 
         // PUT: api/Customer/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
@@ -74,6 +77,7 @@ namespace BlzrAPI.Controllers
 
         // POST: api/Customer
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
@@ -84,6 +88,7 @@ namespace BlzrAPI.Controllers
         }
 
         // DELETE: api/Customer/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
