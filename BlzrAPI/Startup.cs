@@ -42,7 +42,7 @@ namespace BlzrAPI
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => 
-                    builder.WithOrigins("https://localhost:6001","http://localhost:6000")
+                    builder.WithOrigins("https://localhost:6001","http://localhost:6000","https://blzr.azurewebsites.net")
                         .AllowAnyHeader()
                         .AllowAnyMethod());
             }); 
