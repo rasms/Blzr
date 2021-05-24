@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
-@inject HttpClient _http
+@attribute [Authorize]
+@inject ICustomerService CustomerService
 @using BlzrModels.Models;
 
 <h1>AdventureWorks Customers</h1>
@@ -56,6 +57,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _customers = await _http.GetFromJsonAsync<List<Customer>>("https://localhost:5001/Customer");
+        //_customers = await _http.GetFromJsonAsync<List<Customer>>("https://localhost:5001/Customer");
+        _customers = await CustomerService.GetAll();
     } 
 }

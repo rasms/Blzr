@@ -42,7 +42,9 @@ namespace BlzrAPI
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => 
-                    builder.WithOrigins("https://localhost:6001"));
+                    builder.WithOrigins("https://localhost:6001","http://localhost:6000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
             }); 
         }
 
