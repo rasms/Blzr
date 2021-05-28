@@ -1,7 +1,9 @@
 ﻿@page "/fetchdata"
 @attribute [Authorize]
 @inject ICustomerService CustomerService
+@inject ISnackbar Snackbar
 @using BlzrModels.Models;
+@using System.Windows.Input
 
 <h1>AdventureWorks Customers</h1>
 
@@ -14,7 +16,12 @@
 else
 {
     
-    <MudTable Items="@_customers" Hover="true" Dense="true" Striped="true" SortLabel="Sort By" RowsPerPage="50">
+    <MudTable Items="@_customers" Hover="true" Dense="true" Striped="true" RowsPerPage="50" Filter="new Func<Customer,bool>(FilterFunc)" @bind-SelectedItem="_selectedItem" SortLabel="Sort By" CommitEditTooltip="Commit Edit" OnCommitEditClick="@(() => EditCustomer(_selectedItem.CustomerId))">
+    <ToolBarContent>
+            <MudText Typo="Typo.h6">AdventureWorks Customers</MudText>
+            <MudToolBarSpacer />
+            <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
         <HeaderContent>
             <MudTh><MudTableSortLabel SortBy="new Func<Customer, object>(x=>x.CustomerId)">CustomerId</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<Customer, object>(x=>x.FirstName)">Firstname</MudTableSortLabel></MudTh>
@@ -53,11 +60,49 @@ else
 
 @code {
     
+    private string _searchString = "";
+    private Customer _selectedItem = null;
+    //private BindingCommand _editCustomerCommand;
+    private HashSet<Customer> _selectedItems = new HashSet<Customer>();
     private IEnumerable<Customer> _customers = new List<Customer>();
 
     protected override async Task OnInitializedAsync()
     {
-        //_customers = await _http.GetFromJsonAsync<List<Customer>>("https://localhost:5001/Customer");
-        _customers = await CustomerService.GetAll();
-    } 
+        //_editCustomerCommand = new BindingCommand(EditCustomerCommand_Executed);
+        await GetCustomer();
+    }
+
+    private async Task GetCustomer()
+    {
+        _customers = await CustomerService.List();
+    }
+
+    private async void EditCustomer(int customerId)
+    {
+        Customer putCustomer = _customers.FirstOrDefault(c => c.CustomerId == customerId);
+        await CustomerService.Update(putCustomer);
+        Snackbar.Add($"Customer Id {putCustomer?.CustomerId} updated!", Severity.Info);
+        await GetCustomer();
+    }
+    
+    // private async void EditCustomerCommand_Executed(object parameter)
+    // {
+    //     var putCustomer = (Customer)parameter;
+    //     await CustomerService.Update(putCustomer);
+    //     Snackbar.Add($"Customer Id {putCustomer.CustomerId} updated!");
+    //     await GetCustomer();
+    // }
+    
+    private bool FilterFunc(Customer customer)
+    {
+        if (string.IsNullOrWhiteSpace(_searchString))
+            return true;
+        if (customer.FirstName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (customer.LastName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (customer.EmailAddress.Contains(_searchString))
+            return true;
+        return false;
+    }
 }

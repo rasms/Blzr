@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "BlzrAPI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildAPI",
+            "program": "${workspaceFolder}/BlzrAPI/bin/Debug/net5.0/BlzrAPI.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/BlzrAPI",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "BlazorPwa",
+            "type": "blazorwasm",
+            "request": "launch",
+            "url": "https://localhost:6001",
+            "cwd": "${workspaceFolder}/BlazorPwa"
+        }
+    ]
+}

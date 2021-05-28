@@ -6,7 +6,8 @@ namespace BlazorPwa.Services
 {
     public interface ICustomerService
     {
-        Task<IEnumerable<Customer>> GetAll();
+        Task<IEnumerable<Customer>> List();
+        Task<Customer> Update(Customer customer);
     }
 
     public class CustomerService : ICustomerService
@@ -18,9 +19,13 @@ namespace BlazorPwa.Services
             _httpService = httpService;
         }
 
-        public async Task<IEnumerable<Customer>> GetAll()
+        public async Task<IEnumerable<Customer>> List()
         {
             return await _httpService.Get<IEnumerable<Customer>>("/Customer");
+        }
+        public async Task<Customer> Update(Customer customer)
+        {
+            return await _httpService. Put<Customer>($"/Customer/{customer.CustomerId}", customer);
         }
     }
 }

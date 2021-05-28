@@ -58,7 +58,7 @@ namespace BlzrAPI.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+              var result = await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -72,7 +72,7 @@ namespace BlzrAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Customer
