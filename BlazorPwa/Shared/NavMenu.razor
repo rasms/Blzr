@@ -1,47 +1,27 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorPwa</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<MudAppBar Color="Color.Primary" Fixed="true">
+     <MudMenu Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Edge="Edge.Start" Class="d-flex d-md-none">
+         <MudMenuItem Link="" Variant="Variant.Text" Color="Color.Inherit">Home</MudMenuItem>
+         <MudMenuItem Link="counter" Variant="Variant.Text" Color="Color.Inherit">Counter</MudMenuItem>
+         <MudMenuItem Link="fetchdata" Variant="Variant.Text" Color="Color.Inherit">Fetch Data</MudMenuItem>
+         <MudMenuItem Link="camera" Variant="Variant.Text" Color="Color.Inherit">Camera</MudMenuItem>
+        </MudMenu>
+    <h5 class="mud-typography mud-typography-h5 mud-inherit-text mudblazor-appbar-brand-text">BlazorPWA</h5>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <MudIcon Icon="@Icons.Material.Outlined.Home" Title="Home" /> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <MudIcon Icon="@Icons.Material.Outlined.PlusOne" Title="PlusOne" /> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <MudIcon Icon="@Icons.Material.Outlined.Api" Title="Api" /> Fetch data
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="camera">
-                <MudIcon Icon="@Icons.Material.Outlined.PhotoCamera" Title="PhotoCamera" /> Camera
-            </NavLink>
-        </li>
-                <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="logout">
-                                <MudIcon Icon="@Icons.Material.Filled.Logout" Title="Logout" /> Logout
-                            </NavLink>
-                        </li>
-    </ul>
-</div>
+    <MudAppBarSpacer/>
+    <div class="d-none d-md-flex">
+            <MudButton Link="" Variant="Variant.Text" Color="Color.Inherit">Home</MudButton>
+            <MudButton Link="counter" Variant="Variant.Text" Color="Color.Inherit">Counter</MudButton>
+            <MudButton Link="fetchdata" Variant="Variant.Text" Color="Color.Inherit">Fetch Data</MudButton>
+            <MudButton Link="camera" Variant="Variant.Text" Color="Color.Inherit">Camera</MudButton>
+    </div>
 
-@code {
-    private bool collapseNavMenu = true;
+    <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Direction="Direction.Right" OffsetY="true" Edge="Edge.End">
+        <MudMenuItem>Profile</MudMenuItem>
+        <MudMenuItem>My account</MudMenuItem>
+        <MudMenuItem Link="logout">Logout</MudMenuItem>
+    </MudMenu>
+</MudAppBar>
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+
+
